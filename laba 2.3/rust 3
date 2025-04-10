@@ -1,0 +1,36 @@
+use std::io;
+
+fn main() {
+    println!("Введите число: ");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("Ошибка чтения");
+    let number: i32 = input.trim().parse().expect("Введите целое число");
+    let abs_number = number.abs();
+
+    // Сумма цифр
+    let mut sum = 0;
+    let mut temp = abs_number;
+    while temp > 0 {
+        sum += temp % 10;
+        temp /= 10;
+    }
+
+    // Произведение цифр
+    let mut product = 1;
+    temp = abs_number;
+    if temp == 0 {
+        product = 0;
+    } else {
+        while temp > 0 {
+            product *= temp % 10;
+            temp /= 10;
+        }
+    }
+
+    // Модуль разности
+    let difference = (sum - product).abs();
+
+    println!("Сумма цифр: {}", sum);
+    println!("Произведение цифр: {}", product);
+    println!("Модуль разности: {}", difference);
+}

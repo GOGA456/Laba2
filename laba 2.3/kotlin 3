@@ -1,0 +1,32 @@
+fun main() {
+    print("Введите число: ")
+    val number = readLine()!!.toInt()
+    val absNumber = kotlin.math.abs(number)
+
+    // Сумма цифр
+    var sum = 0
+    var temp = absNumber
+    while (temp > 0) {
+        sum += temp % 10
+        temp /= 10
+    }
+
+    // Произведение цифр
+    var product = 1
+    temp = absNumber
+    if (temp == 0) {
+        product = 0
+    } else {
+        while (temp > 0) {
+            product *= temp % 10
+            temp /= 10
+        }
+    }
+
+    // Модуль разности
+    val difference = kotlin.math.abs(sum - product)
+
+    println("Сумма цифр: $sum")
+    println("Произведение цифр: $product")
+    println("Модуль разности: $difference")
+}

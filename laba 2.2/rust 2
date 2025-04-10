@@ -1,0 +1,37 @@
+use std::collections::HashSet;
+
+fn normalize_email(email: &str) -> String {
+    let at_pos = email.find('@').unwrap_or(email.len());
+    let (username, domain) = email.split_at(at_pos);
+    
+    // Обрабатываем имя пользователя
+    let username = username.split('+').next().unwrap_or(""); // Берем часть до '+'
+    let username = username.replace(".", ""); // Удаляем все точки
+    
+    format!("{}{}", username, domain)
+}
+
+fn count_unique_emails(emails: Vec<&str>) -> usize {
+    let normalized: Vec<String> = emails.iter()
+        .map(|&email| normalize_email(email))
+        .collect();
+    
+    let unique: HashSet<String> = normalized.into_iter().collect();
+    unique.len()
+}
+
+fn main() {
+    let emails1 = vec![
+        "mar.pha+science@corp.nstu.ru",
+        "marpha+scie.nce@corp.nstu.ru",
+        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"
+    ];
+    println!("Пример 1: {}", count_unique_emails(emails1)); 
+    
+    let emails2 = vec![
+        "mar.pha+science@co.rp.nstu.ru",
+        "marpha+scie.nce@c.orp.nstu.ru",
+        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"
+    ];
+    println!("Пример 2: {}", count_unique_emails(emails2)); 
+}

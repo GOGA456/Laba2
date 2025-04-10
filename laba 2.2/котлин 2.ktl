@@ -1,0 +1,35 @@
+fun Email(email: String): String {
+    val at = email.indexOf('@')
+    if (at == -1) return email
+    
+    var username = email.substring(0, at)
+    val domain = email.substring(at)
+    
+    username = username.replace(".", "")
+    val plus = username.indexOf('+')
+    if (plus != -1) {
+        username = username.substring(0, plus)
+    }
+    
+    return username + domain
+}
+
+fun count(emails: Array<String>): Int {
+    return emails.map { Email(it) }.toSet().size
+}
+
+fun main() {
+    val emails1 = arrayOf(
+        "mar.pha+science@corp.nstu.ru",
+        "marpha+scie.nce@corp.nstu.ru",
+        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"
+    )
+    println("Пример 1: ${count(emails1)}") // 1
+    
+    val emails2 = arrayOf(
+        "mar.pha+science@co.rp.nstu.ru",
+        "marpha+scie.nce@c.orp.nstu.ru",
+        "marph.a+s.c.i.e.n.c.e+@corp.nstu.ru"
+    )
+    println("Пример 2: ${count(emails2)}") // 2
+}
